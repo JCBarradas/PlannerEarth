@@ -27,4 +27,37 @@ $(document).ready(function () {
         console.log(savedEvent)
       }
 
-    }})
+      var saveBtnCol = $("<button>")
+      .addClass("col-1 saveBtn")
+      .html('<i class="fas fa-save"></i>');
+
+    timeblock.append(hourCol, textAreaCol, saveBtnCol);
+    timeblocksContainer.append(timeblock);
+
+    // Color-code timeblocks based on past, present, and future
+    updateColors(timeblock, i);
+  }
+
+  // Attach event listener to save buttons for entering events
+  $(".saveBtn").on("click", function () {
+    var hour = $(this).parent().attr("data-hour");
+    var eventText = $(this).siblings(".description").val();
+    // Save the event in local storage
+    localStorage.setItem(`event-${hour}`, eventText);
+    // Update colors after saving event
+    updateColors($(this).parent(), hour);
+  });
+  
+  function updateColors(timeblock, hour) {
+    var currentHour = dayjs().hour();
+
+    if (hour < currentHour) {
+      timeblock.removeClass("present future").addClass("past");
+    } else if (hour === currentHour) {
+      timeblock.removeClass("past future").addClass("present");
+    } else {
+      timeblock.removeClass("past present").addClass("future");
+    }
+  }
+  
+});
