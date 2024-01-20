@@ -43,8 +43,12 @@ if (!scriptExecuted) {
             var saveBtnCol = $("<button>")
                 .addClass("col-1 saveBtn")
                 .html('<i class="fas fa-save"></i>');
+            
+            var doneBtnCol = $("<button>")
+                .addClass("col-1 doneBtn")
+                .text("Done");
 
-            timeblock.append(hourCol, textAreaCol, saveBtnCol);
+            timeblock.append(hourCol, textAreaCol, saveBtnCol, doneBtnCol);
             timeblocksContainer.append(timeblock);
 
             // Color-code timeblocks based on whether they are before, at, or after the present time
@@ -60,6 +64,14 @@ if (!scriptExecuted) {
             // Update colors after saving event
             updateColors($(this).parent(), hour);
         });
+
+        // Attach event listener to completed buttons for clearing textarea content
+        $(".doneBtn").on("click", function () {
+          $(this).siblings(".description").val("");
+          var hour = $(this).parent().attr("data-hour");
+          // Clear the event in local storage
+          localStorage.setItem(`event-${hour}`, "");
+      });
 
         // Set colors based on the information stored in local storage
         for (var i = 9; i <= 19; i++) {
