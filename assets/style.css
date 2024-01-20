@@ -32,8 +32,11 @@ header {
 }
 
 .row {
+  display: flex;
+  flex-wrap: nowrap;
   white-space: pre-wrap;
   height: 80px;
+  width: 100%;
   border-top: 1px solid white;
 }
 
@@ -41,6 +44,7 @@ header {
   background-color: #ffffff;
   color: #000000;
   border-top: 1px dashed #000000;
+  padding-top: 30px;
 }
 
 .past {
@@ -58,15 +62,19 @@ header {
   color: rgb(255, 255, 255);
 }
 
-.saveBtn {
+.saveBtn,
+.doneBtn {
   border-left: 1px solid black;
   border-top-right-radius: 15px;
   border-bottom-right-radius: 15px;
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
   background-color: #06aed5;
   color: white;
 }
 
-.saveBtn i:hover {
+.saveBtn,
+.doneBtn i:hover {
   font-size: 20px;
   transition: all 0.3s ease-in-out;
 }
